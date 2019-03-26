@@ -6,7 +6,15 @@
   font-family: "Lato", sans-serif;
 }
 
-
+body {
+  background:
+  radial-gradient(black 15%, transparent 16%) 0 0,
+  radial-gradient(black 15%, transparent 16%) 8px 8px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color:#282828;
+  background-size:16px 16px;
+}
 
 .container {
   width: 100vw;
@@ -18,13 +26,29 @@
 .list-container {
   width: 100%;
   height: 80%;
-  padding-left: 100px;
+  display: flex;
+
+}
+
+.active {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.film-list-container, .series-list-container {
+  width: 50%;
+  height: 75%;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 50px;
 }
 
 .header {
   width: 100%;
-  height: 10%;
+  height: 15%;
   background: black;
   color: red;
   display: flex;
@@ -34,11 +58,13 @@
 }
 
 .list-box {
-  border-bottom: 2px solid black;
+  border: 2px solid black;
   padding-top: 20px;
   padding-bottom: 20px;
-
-
+  padding-left: 10px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 input {
@@ -46,12 +72,19 @@ input {
   height: 20px;
   margin-left: 30px;
   border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
 }
 
 li {
   font-size: 20px;
   list-style: none;
 }
+
+.fas, .far, h1{
+  color: #ff0000;
+}
+
 
 button {
   width: 100px;
@@ -60,6 +93,7 @@ button {
   font-size: 15px;
   margin-left: 20px;
   border: 0px;
+  outline: none;
 }
 
 button:hover{
@@ -69,6 +103,6 @@ button:hover{
 
 button:active {
   background-color: darkred;
-  box-shadow: 0 5px #666;
+  box-shadow: 0 2px #666;
   transform: translateY(4px);
 }

@@ -13,12 +13,13 @@
      <!-- JS: HANDLEBARS -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" charset="utf-8"></script>
      <!-- JS: MY TEMPLATE -->
-     <script id="li-template" type="text/x-handlebars-template">
+     <script id="template" type="text/x-handlebars-template">
       <div class="list-box">
-        <li><b>Titolo:</b> {{ title }}</li>
-        <li><b>Titolo originale:</b> {{ original_title }}</li>
-        <li><b>Lingua:</b> {{ popularity }}</li>
-        <li><b>Voto:</b> {{ vote_average }}</li>
+        <li><b>Titolo:</b> {{ titolo }}</li>
+        <li><b>Titolo originale:</b> {{ titoloOriginale }}</li>
+        <li><b>Lingua originale:</b> {{ linguaOriginale }}</li>
+        <li><b>Voto:</b> {{ voto }}</li>
+        <li id="last-li"><b>Rating:</b> {{{ rating }}}</li>
       </div>
      </script>
      <!-- JS: MY JS -->
@@ -29,12 +30,20 @@
      <div class="container">
        <div class="header">
          <h1>BOOLFLIX</h1>
-         <input id="input" type="text" name="" value="">
+         <input id="input" type="text" name="" value="ciao">
          <button type="button" name="button"> Search </button>
        </div>
        <div class="list-container">
-         <ul id="ul-list">
-         </ul>
+         <div class="film-list-container">
+           <h1 class="h1-film hide"> Film </h1>
+           <ul id="ul-list-film">
+           </ul>
+         </div>
+         <div class="series-list-container">
+           <h1 class="h1-serie hide"> Serie TV</h1>
+           <ul id="ul-list-series">
+           </ul>
+         </div>
 
        </div>
      </div>
