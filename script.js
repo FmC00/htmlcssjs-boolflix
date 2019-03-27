@@ -1,3 +1,4 @@
+
 function addFilmTitle(film){
   // ricavo il numero di stelle corretto
   var numberOfstars = film.vote_average;
@@ -34,6 +35,11 @@ function addFilmTitle(film){
   var li = compiled(tempData)
   var ul = $("#ul-list-film");
   ul.append(li)
+
+  // genero il titolo h1"film" sopra la lista
+  var h1Film = $(".film-list-h1")
+  h1Film.removeClass("hide")
+
 }
 
 function addSeriesTitle(serie){
@@ -69,6 +75,11 @@ function addSeriesTitle(serie){
   var li = compiled(tempData)
   var ul = $("#ul-list-series");
   ul.append(li)
+
+  // genero il titolo h1"Serie TV" sopra la lista
+
+  var h1Serie = $(".series-list-h1")
+  h1Serie.removeClass("hide")
 
 }
 
@@ -144,6 +155,7 @@ function getAjaxSeries(userInput){
         var serie = data.results[i];
         addSeriesTitle(serie)
       };
+      getTitles(userInput)
 
     },
     error: function(){
@@ -154,6 +166,17 @@ function getAjaxSeries(userInput){
 
 };
 
+function getTitles(userInput){
+  tempData = {
+    filmOserie: userInput
+  }
+  var template = $("#template-two").html();
+  var compiled = Handlebars.compile(template)
+  var h1 = compiled(tempData)
+  var container = $(".film-serie");
+  container.append(h1)
+}
+
 
 
 function clearInput(input){
@@ -161,19 +184,21 @@ function clearInput(input){
 }
 
 function clearList(listFilm, listSeries){
+  var title = $(".correlated-title")
+  title.remove()
   listFilm.html("")
   listSeries.html("")
 }
 
 function searchWithClick(e) {
   var userInput = $("#input")
+  var inputVal = userInput.val();
   var keyPressed = e.which
   var filmList = $("#ul-list-film")
   var seriesList = $("#ul-list-series")
 
 
   if(keyPressed == 13) {
-    var inputVal = userInput.val();
     getAjaxFilm(inputVal);
     getAjaxSeries(inputVal)
     clearInput(userInput);
@@ -196,9 +221,10 @@ function searchWithButton(){
 
 
 
+
+
 function init(){
   var button = $("button");
-  var list = $("#ul-list")
   var userInput = $("#input");
   button.click(searchWithButton);
   userInput.keyup(searchWithClick);
