@@ -202,7 +202,6 @@ function init(){
   var userInput = $("#input");
   button.click(searchWithButton);
   userInput.keyup(searchWithClick);
-
 };
 
 

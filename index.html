@@ -14,12 +14,14 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" charset="utf-8"></script>
      <!-- JS: MY TEMPLATE -->
      <script id="template" type="text/x-handlebars-template">
-      <div class="list-box" style="background-image: url('https://image.tmdb.org/t/p/w185{{urlImg}}')">
-        <li><b>Titolo:</b> {{ titolo }}</li>
-        <li><b>Titolo originale:</b> {{ titoloOriginale }}</li>
-        <li><b>Lingua originale:</b> {{ linguaOriginale }} <span id="flag">{{{ flag }}}</span></li>
-        <li><b>Voto:</b> {{ voto }}</li>
-        <li id="last-li"><b>Rating:</b> {{{ rating }}}</li>
+      <div class="list-box" style="background-image: url('https://image.tmdb.org/t/p/w342{{urlImg}}')">
+        <li id="title-style"> {{ titolo }}</li>
+        <div class="film-series-details">
+          <li><b>Titolo originale:</b> {{ titoloOriginale }}</li>
+          <li><b>Lingua originale:</b> {{ linguaOriginale }} <span id="flag">{{{ flag }}}</span></li>
+          <li><b>Voto:</b> {{ voto }}</li>
+          <li id="last-li"><b>Rating:</b> {{{ rating }}}</li>
+        </div>
       </div>
      </script>
      <!-- google fonts -->
@@ -36,7 +38,7 @@
          <button id="button"type="button" name="button"> Search </button>
        </div>
        <div class="wrapper">
-         <p>another pirate binge-watching friendly website</p>
+         <p>another binge-watching friendly website</p>
        </div>
        <div class="list-container">
          <div class="film-list-container">
