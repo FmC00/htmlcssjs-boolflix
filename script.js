@@ -1,7 +1,7 @@
 function addFilmTitle(film){
   // ricavo il numero di stelle corretto
   var numberOfstars = film.vote_average;
-  var stars = Math.floor(numberOfstars/2);
+  var stars = Math.round(numberOfstars)/2;
 
 
   var emptyIcon = "<i class='far fa-star'></i>"
@@ -15,12 +15,16 @@ function addFilmTitle(film){
       rating+=emptyIcon
     }
   }
+
+
   var tempData = {
     titolo: film.title,
     titoloOriginale: film.original_title,
     linguaOriginale: film.original_language,
     voto: film.vote_average,
-    rating: rating
+    rating: rating,
+    flag: getFlag(film.original_language),
+    urlImg: film.poster_path
   }
 
 
@@ -30,14 +34,12 @@ function addFilmTitle(film){
   var li = compiled(tempData)
   var ul = $("#ul-list-film");
   ul.append(li)
-
-
 }
 
 function addSeriesTitle(serie){
   // ricavo il numero di stelle corretto
   var numberOfstars = serie.vote_average;
-  var stars = Math.floor(numberOfstars/2);
+  var stars = Math.round(numberOfstars)/2;
 
   var emptyIcon = "<i class='far fa-star'></i>"
   var fullIcon = "<i class='fas fa-star'></i>"
@@ -55,7 +57,9 @@ function addSeriesTitle(serie){
     titoloOriginale: serie.original_name,
     linguaOriginale: serie.original_language,
     voto: serie.vote_average,
-    rating: ratings
+    rating: ratings,
+    flag: getFlag(serie.original_language),
+    urlImg: serie.poster_path
   }
 
 
@@ -68,6 +72,24 @@ function addSeriesTitle(serie){
 
 }
 
+function getFlag(flag) {
+
+  var flagImg;
+  switch (flag) {
+
+    case "en":
+    flagImg = "<img src='img/bandiera_eng.svg' width= '25px'>";
+    break;
+
+    case "it":
+    flagImg = "<img src='img/bandiera_ita.svg' width= '25px'>";
+    break;
+
+    default:
+    flagImg = "";
+  }
+  return flagImg
+}
 
 
 function getAjaxFilm(userInput){
