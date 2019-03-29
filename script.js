@@ -25,7 +25,9 @@ function addFilmTitle(film){
     voto: film.vote_average,
     rating: rating,
     flag: getFlag(film.original_language),
-    urlImg: film.poster_path
+    urlImg: film.poster_path,
+    id: film.id,
+    genreIds: film.genre_ids
   }
 
 
@@ -35,6 +37,8 @@ function addFilmTitle(film){
   var li = compiled(tempData)
   var ul = $("#ul-list-film");
   ul.append(li)
+  getCastFilm(film.id)
+  getGenre(film.genre_ids,film.id )
 
   // genero il titolo h1"film" sopra la lista
   var h1Film = $(".film-list-h1")
@@ -65,7 +69,8 @@ function addSeriesTitle(serie){
     voto: serie.vote_average,
     rating: ratings,
     flag: getFlag(serie.original_language),
-    urlImg: serie.poster_path
+    urlImg: serie.poster_path,
+    id: serie.id
   }
 
 
@@ -75,6 +80,9 @@ function addSeriesTitle(serie){
   var li = compiled(tempData)
   var ul = $("#ul-list-series");
   ul.append(li)
+  getCastSeries(serie.id)
+  getGenre(serie.genre_ids,serie.id )
+
 
   // genero il titolo h1"Serie TV" sopra la lista
 
@@ -216,6 +224,222 @@ function searchWithButton(){
   clearInput(userInput);
   clearList(filmList, seriesList);
 };
+
+
+function getCastSeries(id) {
+
+  var castArray = "";
+  var outData = {
+    api_key: "ecfb7a9fb11cf779a17e5ed15359ab26",
+    language: "it-IT"
+  }
+
+  $.ajax({
+
+    url:"https://api.themoviedb.org/3/tv/"+id+"/credits",
+    method: "GET",
+    data: outData,
+    success: function (data){
+      for (var i = 0; i < 5 && i<data.cast.length; i++) {
+        var cast = data.cast[i]
+        var castActor = cast.name
+        castArray += castActor
+        castArray += "<br>"
+      }
+      if (castArray == "") {
+        castArray +="nessuna informazione sul cast disponibile"
+      }
+
+      var filmCard = $(".film-series-details[data-id='"+id+"']")
+      var liCast = filmCard.find("#cast")
+      liCast.html(castArray)
+    },
+    error: function() {
+      console.log("errore nella function getCast")
+    }
+
+  })
+};
+
+
+function getCastFilm(id) {
+
+  var castArray = "";
+  var outData = {
+    api_key: "ecfb7a9fb11cf779a17e5ed15359ab26",
+    language: "it-IT"
+  }
+
+  $.ajax({
+
+    url:"https://api.themoviedb.org/3/movie/"+id+"/credits",
+    method: "GET",
+    data: outData,
+    success: function (data){
+      for (var i = 0; i < 5 && i<data.cast.length; i++) {
+        var cast = data.cast[i]
+        var castActor = cast.name
+        castArray += castActor
+        castArray += "<br>"
+      }
+      if (castArray == "") {
+        castArray +="nessuna informazione sul cast disponibile"
+      }
+
+      var filmCard = $(".film-series-details[data-id='"+id+"']")
+      var liCast = filmCard.find("#cast")
+      liCast.html(castArray)
+    },
+    error: function() {
+      console.log("errore nella function getCast")
+    }
+
+  })
+};
+
+function getGenre(genreids, filmid){
+
+  var genreString = ""
+
+  for (var i = 0; i < genreids.length; i++) {
+    var singleID = genreids[i]
+    genreString += convertID(singleID)
+    genreString += "<br>"
+  }
+  var filmCard = $(".film-series-details[data-id='"+filmid+"']")
+  var liGenre = filmCard.find("#genre")
+  liGenre.html(genreString)
+}
+
+function convertID(singleID){
+  var stringID = "";
+
+
+  switch (singleID) {
+
+    // generi dei film
+
+    case 28:
+    stringID = "Action"
+    break;
+
+    case 12:
+    stringID = "Adventure"
+    break;
+
+    case 16:
+    stringID = "Animation"
+    break;
+
+    case 35:
+    stringID = "Comedy"
+    break;
+
+    case 80:
+    stringID = "Crime"
+    break;
+
+    case 99:
+    stringID = "Documentary"
+    break;
+
+    case 18:
+    stringID = "Drama"
+    break;
+
+    case 10751:
+    stringID = "Family"
+    break;
+
+    case 14:
+    stringID = "Fantasy"
+    break;
+
+    case 36:
+    stringID = "History"
+    break;
+
+    case 27:
+    stringID = "Horror"
+    break;
+
+    case 10402:
+    stringID = "Horror"
+    break;
+
+    case 9648:
+    stringID = "Mistery"
+    break;
+
+    case 10749:
+    stringID = "Mistery"
+    break;
+
+    case 878:
+    stringID = "Science Fiction"
+    break;
+
+    case 10770:
+    stringID = "TV Movie"
+    break;
+
+    case 53:
+    stringID = "Thriller"
+    break;
+
+    case 10752:
+    stringID = "War"
+    break;
+
+    case 37:
+    stringID = "Western"
+    break;
+
+    // generi esclusivi delle series
+
+    case 10759:
+    stringID = "Action&Adventure"
+    break;
+
+    case 10762:
+    stringID = "Kids"
+    break;
+
+    case 10763:
+    stringID = "News"
+    break;
+
+    case 10764:
+    stringID = "Reality"
+    break;
+
+    case 10765:
+    stringID = "Sci-Fi & Fantasy"
+    break;
+
+    case 10766:
+    stringID = "Soap"
+    break;
+
+    case 10767:
+    stringID = "Talk"
+    break;
+
+    case 10768:
+    stringID = "War & Politics"
+    break;
+
+    default:
+    stringID = "";
+  }
+
+  if (stringID == "") {
+    stringID +="nessuna informazione sul genere disponibile"
+  }
+
+  return stringID
+
+}
 
 
 

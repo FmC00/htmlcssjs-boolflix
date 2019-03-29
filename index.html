@@ -16,13 +16,17 @@
      <script id="template" type="text/x-handlebars-template">
       <div class="list-box" style="background-image: url('https://image.tmdb.org/t/p/w185{{urlImg}}')">
         <li id="title-style"> {{ titolo }}</li>
-        <div class="film-series-details">
+        <div class="film-series-details" data-id="{{ id }}">
           <li><b>Titolo originale:</b></li>
           <li>{{ titoloOriginale }}</li>
           <li><b>Lingua originale:</b></li>
           <li>{{ linguaOriginale }} <span id="flag">{{{ flag }}}</span></li>
           <li><b>Voto:</b> {{ voto }}</li>
           <li id="rating-li"><b>Rating:</b> {{{ rating }}}</li>
+          <li><b>Cast:</b></li>
+          <li id="cast"> {{{ cast }}} </li>
+          <li><b>Genere:</b></li>
+          <li id="genre"> {{{genreIds}}} </li>
         </div>
       </div>
      </script>
